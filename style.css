@@ -6,8 +6,8 @@
 
 body, html {
   height: 100%;
-  font-family: Arial, sans-serif;
   background: black;
+  font-family: Arial, sans-serif;
   color: white;
 }
 
@@ -17,7 +17,6 @@ body, html {
   overflow: hidden;
 }
 
-/* Camera full screen */
 #scanner {
   position: absolute;
   width: 100%;
@@ -25,7 +24,6 @@ body, html {
   object-fit: cover;
 }
 
-/* Scan overlay */
 #overlay {
   position: absolute;
   width: 100%;
@@ -35,7 +33,6 @@ body, html {
 
 #scan-line {
   position: absolute;
-  top: 50%;
   width: 80%;
   left: 10%;
   height: 2px;
@@ -49,14 +46,12 @@ body, html {
   100% { top: 30%; }
 }
 
-/* Bottom UI */
 #bottom-ui {
   position: absolute;
   bottom: 0;
   width: 100%;
   padding: 15px;
   background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(10px);
   text-align: center;
 }
 
@@ -72,20 +67,4 @@ button {
 
 button:active {
   transform: scale(0.95);
-}
-
-#inventory {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  max-height: 40%;
-  overflow-y: auto;
-  background: rgba(0,0,0,0.6);
-  font-size: 14px;
-  padding: 10px;
-}
-
-.item {
-  padding: 5px;
-  border-bottom: 1px solid #333;
 }

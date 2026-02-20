@@ -2,29 +2,27 @@
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Barcode Scanner</title>
+  <title>Scanner</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <div id="app">
-    <div id="scanner"></div>
+<div id="app">
+  <div id="scanner"></div>
 
-    <div id="overlay">
-      <div id="scan-line"></div>
-    </div>
-
-    <div id="bottom-ui">
-      <p id="result">Ready to scan</p>
-      <button id="startBtn">Start</button>
-      <button id="stopBtn">Stop</button>
-      <button id="flashBtn">Flash</button>
-    </div>
-    <div id="inventory"></div>
+  <div id="overlay">
+    <div id="scan-line"></div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-  <script src="app.js"></script>
-</body>
+  <div id="bottom-ui">
+    <p id="result">Ready</p>
+    <button id="startBtn">Start</button>
+    <button id="stopBtn">Stop</button>
+  </div>
+</div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
+<script src="app.js"></script>
+
+</body>
 </html>
