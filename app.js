@@ -3,11 +3,15 @@ const resultEl = document.getElementById("result");
 document.getElementById("startBtn").onclick = startScanner;
 document.getElementById("stopBtn").onclick = stopScanner;
 
-// 🔊 Beep sound
+// 🔊 beep
 const beep = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
 
-// 🧠 Prevent duplicate spam
 let lastScanned = null;
+
+// 🧠 inventory storage
+let inventory = JSON.parse(localStorage.getItem("inventory")) || {};
+
+/* ---------- SCANNER ---------- */
 
 function startScanner() {
   Quagga.init({
@@ -37,20 +41,19 @@ function stopScanner() {
 Quagga.onDetected(function(data) {
   const code = data.codeResult.code;
 
-  // 🚫 block duplicate scans
   if (code === lastScanned) return;
 
   lastScanned = code;
-  setTimeout(() => {
-    lastScanned = null;
-  }, 1500);
+  setTimeout(() => lastScanned = null, 1500);
 
   resultEl.innerText = "Scanned: " + code;
 
   feedback();
+  saveItem(code);
 });
 
-// 🔊📳 feedback
+/* ---------- FEEDBACK ---------- */
+
 function feedback() {
   beep.play();
 
@@ -58,3 +61,36 @@ function feedback() {
     navigator.vibrate(100);
   }
 }
+
+/* ---------- INVENTORY ---------- */
+
+function saveItem(code) {
+  if (!inventory[code]) {
+    inventory[code] = {
+      count: 0,
+      lastSeen: new Date().toISOString()
+    };
+  }
+
+  inventory[code].count += 1;
+  inventory[code].lastSeen = new Date().toISOString();
+
+  localStorage.setItem("inventory", JSON.stringify(inventory));
+
+  renderInventory();
+}
+
+function renderInventory() {
+  const container = document.getElementById("inventory");
+  container.innerHTML = "";
+
+  Object.entries(inventory).forEach(([code, data]) => {
+    const div = document.createElement("div");
+    div.className = "item";
+    div.innerText = `${code} | count: ${data.count}`;
+    container.appendChild(div);
+  });
+}
+
+// render on load
+renderInventory();
