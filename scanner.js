@@ -1,8 +1,35 @@
+// Store recently scanned codes
+const scannedCodes = new Set();
+
+// Time before allowing same code again (5 seconds)
+const SCAN_COOLDOWN = 500;
+
+
 function onScanSuccess(decodedText) {
+  // If already scanned recently → ignore
+  if (scannedCodes.has(decodedText)) {
+    return;
+  }
+
   console.log("Scanned:", decodedText);
+
+  // Add to memory
+  scannedCodes.add(decodedText);
+
+  // Remove after cooldown
+  setTimeout(() => {
+    scannedCodes.delete(decodedText);
+  }, SCAN_COOLDOWN);
+
+  // Play beep
+  playBeep()
+
+  console.log("after beep");
+  // Optional: stop after first scan
+  // html5QrCode.stop();
 }
 
-// Auto size scan box based on screen width
+// Responsive scan box
 function getQrBoxSize() {
   const width = window.innerWidth;
   return Math.min(width * 0.7, 300);
@@ -21,3 +48,11 @@ html5QrCode.start(
 ).catch(err => {
   console.error("Camera error:", err);
 });
+
+// BEEP
+const beep = new Audio("https://actions.google.com/sounds/v1/alarms/beep_short.ogg");
+
+function playBeep() {
+  beep.currentTime = 0; // reset so it can replay quickly
+  beep.play();
+}
