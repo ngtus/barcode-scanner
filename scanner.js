@@ -2,7 +2,7 @@
 const scannedCodes = new Set();
 
 // Time before allowing same code again (5 seconds)
-const SCAN_COOLDOWN = 500;
+const SCAN_COOLDOWN = 1000;
 
 
 function onScanSuccess(decodedText) {
