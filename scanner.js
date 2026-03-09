@@ -1,9 +1,3 @@
-// Store recently scanned codes
-const scannedCodes = new Set();
-
-// Time before allowing same code again (5 seconds)
-const SCAN_COOLDOWN = 1000;
-
 // ================= INIT ====================
 window.addEventListener("DOMContentLoaded", () => {
   loadProducts();
@@ -24,7 +18,7 @@ function startScanner() {
   const html5QrCode = new Html5Qrcode("reader");
 
   html5QrCode.start(
-    { 
+    {
       facingMode: "environment"
     },
     {
@@ -46,19 +40,12 @@ function startScanner() {
   });
 }
 
+let scanLocked = false;
+const SCAN_DELAY = 2000; // 1.5 seconds
 function onScanSuccess(decodedText) {
-  // If already scanned recently → ignore
-  if (scannedCodes.has(decodedText)) return;
 
-  console.log("Scanned:", decodedText);
-
-  // Add to memory
-  scannedCodes.add(decodedText);
-
-  // Remove after cooldown
-  setTimeout(() => {
-    scannedCodes.delete(decodedText);
-  }, SCAN_COOLDOWN);
+  if (scanLocked) return;
+  scanLocked = true;
 
   // Show on screen
   document.getElementById("scan-result").textContent = decodedText;
@@ -70,6 +57,9 @@ function onScanSuccess(decodedText) {
   console.log("after beep");
   // Optional: stop after first scan
   // html5QrCode.stop();
+  setTimeout(() => {
+    scanLocked = false;
+  }, SCAN_DELAY);
 }
 
 // BEEP
