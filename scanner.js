@@ -13,18 +13,32 @@ window.addEventListener("DOMContentLoaded", () => {
 // Responsive scan box
 function getQrBoxSize() {
   const width = window.innerWidth;
-  return Math.min(width * 0.7, 300);
+  return {
+    width: Math.min(width * 0.8, 400),
+    height: 150
+  };
 }
 
-const html5QrCode = new Html5Qrcode("reader");
-
 function startScanner() {
+
+  const html5QrCode = new Html5Qrcode("reader");
+
   html5QrCode.start(
-    { facingMode: "environment" },
+    { 
+      facingMode: "environment"
+    },
     {
-      fps: 10,
+      fps: 20,
       qrbox: getQrBoxSize(),
-      aspectRatio: 1.0
+      aspectRatio: 1.,
+      formatsToSupport: [
+        Html5QrcodeSupportedFormats.CODE_128,
+        Html5QrcodeSupportedFormats.CODE_39,
+        Html5QrcodeSupportedFormats.EAN_13,
+        Html5QrcodeSupportedFormats.EAN_8,
+        Html5QrcodeSupportedFormats.UPC_A,
+        Html5QrcodeSupportedFormats.UPC_E
+      ]
     },
     onScanSuccess
   ).catch(err => {
@@ -109,7 +123,7 @@ let lastScanned = "";
 function findProduct(barcode) {
 
   lastScanned = barcode;
-  
+
   if (productDB[barcode]) {
     const item = productDB[barcode];
     addToCart(barcode, item);
