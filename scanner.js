@@ -41,7 +41,7 @@ function startScanner() {
 }
 
 let scanLocked = false;
-const SCAN_DELAY = 2000; // 1.5 seconds
+const SCAN_DELAY = 1500; // 1.5 seconds
 function onScanSuccess(decodedText) {
 
   if (scanLocked) return;
