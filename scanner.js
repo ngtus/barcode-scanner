@@ -209,9 +209,9 @@ function renderCart() {
     body.innerHTML += `
       <tr>
         <td>${item.name}</td>
-        <td>$${item.price}</td>
+        <td>${item.price}</td>
         <td>${item.qty}</td>
-        <td>$${rowTotal.toFixed(2)}</td>
+        <td>${rowTotal.toFixed(2)}</td>
       </tr>
     `;
 
