@@ -209,7 +209,7 @@ function renderCart() {
     body.innerHTML += `
       <tr>
         <td>${item.name}</td>
-        <td>${item.price}</td>
+        <td>${item.price.toLocaleString("vi-VN")}</td>
         <td>${item.qty}</td>
         <td>${Number(rowTotal.toFixed(2)).toLocaleString("vi-VN")}</td>
       </tr>
