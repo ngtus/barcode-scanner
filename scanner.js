@@ -211,14 +211,14 @@ function renderCart() {
         <td>${item.name}</td>
         <td>${item.price}</td>
         <td>${item.qty}</td>
-        <td>${rowTotal.toFixed(2).toLocaleString("vi-VN")}</td>
+        <td>${Number(rowTotal.toFixed(2)).toLocaleString("vi-VN")}</td>
       </tr>
     `;
 
   }
 
   document.getElementById("cart-total").innerText =
-    totalPrice.toFixed(2).toLocaleString("vi-VN");
+    Number(totalPrice.toFixed(2)).toLocaleString("vi-VN");
 
 }
 
